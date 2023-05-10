@@ -214,12 +214,37 @@ p {
   font-size: 20px;
   margin: 0;
 }
+
 .comment {
   position: relative;
   top: 50px;
   z-index: 10;
   color: #f8725d;
+  animation: 4s infinite alternate bounce;
 }
+@keyframes bounce {
+  0% {
+    top: 50px;
+    left: 40px;
+  }
+  25% {
+    top: 40px;
+    left: 20px;
+  }
+  50% {
+    top: 50px;
+    left: 0px;
+  }
+  75% {
+    top: 40px;
+    left: -20px;
+  }
+  100% {
+    top: 50px;
+    left: -40px;
+  }
+}
+
 img {
   position: relative;
   width: 350px;
