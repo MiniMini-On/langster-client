@@ -8,9 +8,13 @@
   <div class="box-frame">
     <div :class="boxClass">
       <span>알려주기 : </span>
-      <button id="good" @click="feedback" @mouseover="changeColor" @mouseleave="defaultColor" :class="buttoneClass1">좋은 말</button>
-      <button id="bad" @click="feedback" @mouseover="changeColor" @mouseleave="defaultColor" :class="buttoneClass2">나쁜 말</button>
-      <button id="pass" @click="feedback" @mouseover="changeColor" @mouseleave="defaultColor" :class="buttoneClass3">넘어가기</button>
+      <button id="pass" @click="feedback" :class="buttoneClass1">넘어가기</button>
+      <button id="good" @click="feedback" :class="buttoneClass2">좋은 말</button>
+      <button id="bad" @click="feedback" :class="buttoneClass3">나쁜 말</button>
+      <br />
+      <br />
+      <br />
+      <p class="info">{{ info }}</p>
     </div>
   </div>
   <form @submit="onSubmit">
@@ -49,9 +53,12 @@ export default {
       buttoneClass2: "training",
       buttoneClass3: "training",
       boxClass: "training-box-hidden",
+      infoes: ["방금 입력한 말을 욕냠이에게 알려주세요 ♥", "용냠이가 이미 잘 알고 있다면 넘아가기 클릭", "방금 입력한 문장 = 좋은 말 => 좋은 말 클릭", "방금 입력한 문장 = 나쁜 말 => 나쁜 말 클릭"],
+      info: "",
     };
   },
   methods: {
+    // 테스트 문장 제출
     onSubmit(e) {
       e.preventDefault();
       if (this.message == 0) {
@@ -70,6 +77,26 @@ export default {
           this.comment = "입력 중 ...";
           this.boxClass = "training-box";
           this.image = require("./assets/loading.gif");
+          let i = 0;
+          this.info = this.infoes[i];
+          setInterval(() => {
+            if (i == 3) {
+              i = 0;
+              this.buttoneClass3 = "training";
+            } else {
+              i += 1;
+              if (i == 1) {
+                this.buttoneClass1 = "training-color";
+              } else if (i == 2) {
+                this.buttoneClass2 = "training-color";
+                this.buttoneClass1 = "training";
+              } else if (i == 3) {
+                this.buttoneClass3 = "training-color";
+                this.buttoneClass2 = "training";
+              }
+            }
+            this.info = this.infoes[i];
+          }, 2000);
           this.axios
             .post("api/language/test", { input: this.message })
             .then((res) => {
@@ -89,29 +116,15 @@ export default {
         }
       }
     },
+
+    // 엔터 클릭으로 테스트 문장 제출 ( = textarea 엔터로 줄바꿈 방지)
     enter(e) {
       if (e.keyCode == 13 && !this.isDisabled) {
         this.onSubmit(e);
       }
     },
-    changeColor(e) {
-      if (e.target.id == "good") {
-        this.buttoneClass1 = "training-color";
-      } else if (e.target.id == "bad") {
-        this.buttoneClass2 = "training-color";
-      } else {
-        this.buttoneClass3 = "training-color";
-      }
-    },
-    defaultColor(e) {
-      if (e.target.id == "good") {
-        this.buttoneClass1 = "training";
-      } else if (e.target.id == "bad") {
-        this.buttoneClass2 = "training";
-      } else {
-        this.buttoneClass3 = "training";
-      }
-    },
+
+    // 테스트 문장 제출 후 기본 상태로 되돌리기
     clear() {
       this.image = require("./assets/langster1.gif");
       this.isDisabled = false;
@@ -119,6 +132,8 @@ export default {
       this.comment = "배고파 ~ 배고파 ~";
       this.boxClass = "training-box-hidden";
     },
+
+    // 테스트 문장 응답에 대한 피드백 제출
     feedback(e) {
       if (e.target.id == "pass") {
         this.clear();
@@ -196,11 +211,6 @@ img {
   width: 350px;
 }
 
-/* .submit-box {
-  height: 112px;
-  line-height: 110px;
-} */
-
 textarea {
   width: 230px;
   height: 60px;
@@ -250,7 +260,7 @@ button {
   font-size: 15px;
   background-color: beige;
   z-index: 10;
-  background-color: rgba(249, 157, 157, 0.645);
+  background-color: rgba(250, 209, 166, 0.8);
 }
 .training-box-hidden {
   display: none;
@@ -263,6 +273,7 @@ button {
   border: 2px solid black;
   border-radius: 10px;
   height: 30px;
+  line-height: 30px;
   margin: 3px;
 }
 
@@ -273,7 +284,16 @@ button {
   border: 2px solid black;
   border-radius: 10px;
   height: 30px;
+  line-height: 30px;
   margin: 3px;
   background-color: #f89e90;
+}
+
+.info {
+  font-size: 15px;
+  width: 90%;
+  margin: 0 5%;
+  color: black;
+  background-color: rgb(250, 209, 166);
 }
 </style>
