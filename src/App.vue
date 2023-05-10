@@ -237,6 +237,7 @@ textarea {
   font-family: "omyu_pretty";
   resize: none;
   vertical-align: middle;
+  border-radius: 10px;
 }
 
 .image-crop {
@@ -253,6 +254,7 @@ button {
   height: 83px;
   cursor: pointer;
   vertical-align: middle;
+  border-radius: 10px;
 }
 
 .roller {
