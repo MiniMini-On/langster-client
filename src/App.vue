@@ -65,8 +65,6 @@ export default {
         const trimed = this.message.replace(regExp, "");
         if (trimed == 0) {
           return alert("욕냠이는 한글에 반응합니다.");
-        } else if (this.message.includes("욕남") || this.message.includes("욕냠")) {
-          return alert("욕냠과 욕남은 테스트의 정확성을 위해 사용하실 수 없습니다 ~");
         } else {
           this.isDisabled = true;
           this.comment = "입력 중 ...";
