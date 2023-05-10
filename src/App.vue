@@ -76,40 +76,24 @@ export default {
         } else {
           this.isDisabled = true;
           this.comment = "입력 중 ...";
-          this.boxClass = "training-box";
           this.image = require("./assets/loading.gif");
-          this.info = this.infoes[this.i];
 
-          setInterval(() => {
-            if (this.i == 3) {
-              this.i = 0;
-              if (this.i == 0) {
-                this.buttoneClass3 = "training";
-              }
-            } else {
-              this.i += 1;
-              if (this.i == 1) {
-                this.buttoneClass1 = "training-color";
-              } else if (this.i == 2) {
-                this.buttoneClass2 = "training-color";
-                this.buttoneClass1 = "training";
-              } else if (this.i == 3) {
-                this.buttoneClass3 = "training-color";
-                this.buttoneClass2 = "training";
-              }
-            }
-            this.info = this.infoes[this.i];
-          }, 2000);
           this.axios
             .post("api/language/test", { input: this.message })
             .then((res) => {
               setTimeout(() => {
+                this.boxClass = "training-box";
+
                 if (res.data.output == 0) {
                   this.image = require("./assets/langster2.gif");
                   this.comment = "좋은 말 고마워 ~";
+                  this.info = this.infoes[0];
+                  this.buttonColorChange();
                 } else if (res.data.output == 1) {
                   this.image = require("./assets/langster3.gif");
                   this.comment = "나쁜 말 냠냠 ~";
+                  this.info = this.infoes[0];
+                  this.buttonColorChange();
                 }
               }, 1500);
             })
@@ -119,7 +103,30 @@ export default {
         }
       }
     },
+    // 테스트 문장 제출 후 피드백 박스 나타내고, 내부 버튼 색 돌아가며 바뀜
 
+    buttonColorChange() {
+      let i = 0;
+      this.interval = setInterval(() => {
+        if (i == 3) {
+          i = 0;
+        } else {
+          i += 1;
+        }
+        this.info = this.infoes[i];
+        if (i == 1) {
+          this.buttoneClass1 = "training-color";
+        } else if (i == 2) {
+          this.buttoneClass2 = "training-color";
+          this.buttoneClass1 = "training";
+        } else if (i == 3) {
+          this.buttoneClass3 = "training-color";
+          this.buttoneClass2 = "training";
+        } else if (i == 0) {
+          this.buttoneClass3 = "training";
+        }
+      }, 2000);
+    },
     // 엔터 클릭으로 테스트 문장 제출 ( = textarea 엔터로 줄바꿈 방지)
     enter(e) {
       if (e.keyCode == 13 && !this.isDisabled) {
@@ -129,6 +136,7 @@ export default {
 
     // 테스트 문장 제출 후 기본 상태로 되돌리기
     clear() {
+      clearInterval(this.interval);
       this.image = require("./assets/langster1.gif");
       this.isDisabled = false;
       this.message = "";
@@ -136,10 +144,7 @@ export default {
       this.buttoneClass1 = "training";
       this.buttoneClass2 = "training";
       this.buttoneClass3 = "training";
-      this.i = 0;
-      setTimeout(() => {
-        this.boxClass = "training-box-hidden";
-      }, 500);
+      this.boxClass = "training-box-hidden";
     },
 
     // 테스트 문장 응답에 대한 피드백 제출
