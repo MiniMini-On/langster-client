@@ -55,6 +55,7 @@ export default {
       boxClass: "training-box-hidden",
       infoes: ["방금 입력한 말을 욕냠이에게 알려주세요 ♥", "용냠이가 이미 잘 알고 있다면 넘아가기 클릭", "방금 입력한 문장 = 좋은 말 => 좋은 말 클릭", "방금 입력한 문장 = 나쁜 말 => 나쁜 말 클릭"],
       info: "",
+      i: 0,
     };
   },
   methods: {
@@ -77,8 +78,8 @@ export default {
           this.comment = "입력 중 ...";
           this.boxClass = "training-box";
           this.image = require("./assets/loading.gif");
-          let i = 0;
           this.info = this.infoes[i];
+          let i = this.i;
           setInterval(() => {
             if (i == 3) {
               i = 0;
@@ -135,6 +136,7 @@ export default {
       this.buttoneClass1 = "training";
       this.buttoneClass2 = "training";
       this.buttoneClass3 = "training";
+      this.i = 0;
     },
 
     // 테스트 문장 응답에 대한 피드백 제출
