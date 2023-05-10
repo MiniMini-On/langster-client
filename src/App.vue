@@ -133,11 +133,13 @@ export default {
       this.isDisabled = false;
       this.message = "";
       this.comment = "배고파 ~ 배고파 ~";
-      this.boxClass = "training-box-hidden";
       this.buttoneClass1 = "training";
       this.buttoneClass2 = "training";
       this.buttoneClass3 = "training";
       this.i = 0;
+      setTimeout(() => {
+        this.boxClass = "training-box-hidden";
+      }, 500);
     },
 
     // 테스트 문장 응답에 대한 피드백 제출
