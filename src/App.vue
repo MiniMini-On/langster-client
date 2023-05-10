@@ -78,24 +78,24 @@ export default {
           this.comment = "입력 중 ...";
           this.boxClass = "training-box";
           this.image = require("./assets/loading.gif");
-          this.info = this.infoes[i];
-          let i = this.i;
+          this.info = this.infoes[this.i];
+
           setInterval(() => {
-            if (i == 3) {
-              i = 0;
+            if (this.i == 3) {
+              this.i = 0;
             } else {
-              i += 1;
+              this.i += 1;
             }
-            this.info = this.infoes[i];
-            if (i == 1) {
+            this.info = this.infoes[this.i];
+            if (this.i == 1) {
               this.buttoneClass1 = "training-color";
-            } else if (i == 2) {
+            } else if (this.i == 2) {
               this.buttoneClass2 = "training-color";
               this.buttoneClass1 = "training";
-            } else if (i == 3) {
+            } else if (this.i == 3) {
               this.buttoneClass3 = "training-color";
               this.buttoneClass2 = "training";
-            } else if (i == 0) {
+            } else if (this.i == 0) {
               this.buttoneClass3 = "training";
             }
           }, 2000);
