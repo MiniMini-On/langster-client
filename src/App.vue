@@ -83,7 +83,7 @@ export default {
                   this.image = require("./assets/langster3.gif");
                   this.comment = "나쁜 말 냠냠 ~";
                 }
-              }, 2000);
+              }, 1500);
             })
             .catch(() => {
               alert("서버 점검 중 입니다");
