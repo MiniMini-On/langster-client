@@ -83,21 +83,22 @@ export default {
           setInterval(() => {
             if (this.i == 3) {
               this.i = 0;
+              if (this.i == 0) {
+                this.buttoneClass3 = "training";
+              }
             } else {
               this.i += 1;
+              if (this.i == 1) {
+                this.buttoneClass1 = "training-color";
+              } else if (this.i == 2) {
+                this.buttoneClass2 = "training-color";
+                this.buttoneClass1 = "training";
+              } else if (this.i == 3) {
+                this.buttoneClass3 = "training-color";
+                this.buttoneClass2 = "training";
+              }
             }
             this.info = this.infoes[this.i];
-            if (this.i == 1) {
-              this.buttoneClass1 = "training-color";
-            } else if (this.i == 2) {
-              this.buttoneClass2 = "training-color";
-              this.buttoneClass1 = "training";
-            } else if (this.i == 3) {
-              this.buttoneClass3 = "training-color";
-              this.buttoneClass2 = "training";
-            } else if (this.i == 0) {
-              this.buttoneClass3 = "training";
-            }
           }, 2000);
           this.axios
             .post("api/language/test", { input: this.message })
