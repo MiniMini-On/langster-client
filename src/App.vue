@@ -14,7 +14,7 @@
     </div>
   </div>
   <form @submit="onSubmit">
-    <textarea :disabled="isDisabled" ref="test" v-model="message" @keydown="enter" placeholder="욕냠이에게 말을 걸어보세요&#10;(255자 이내, 욕냠/욕남 사용 불가)" autofocus />
+    <textarea :disabled="isDisabled" ref="test" v-model="message" @keydown="enter" placeholder="욕냠이에게 말을 걸어보세요&#10;(255자 이내)" autofocus />
     <button :disabled="isDisabled">↵</button>
   </form>
 </template>
