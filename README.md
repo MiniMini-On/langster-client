@@ -6,7 +6,9 @@ https://github.com/MiniMini-On/langster-client/assets/120891914/54faf4cb-39d0-4b
 
 ## 기술 스택
 프론트엔드: Vue.js
+
 백엔드 : Django
+
 AI : Tensorflow keras
 
 ## 서비스 이용 방법
